@@ -1,0 +1,37 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+    postgres:
+      image: postgres:11.1-alpine
+      container_name: xml-reader-postgres
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - POSTGRES_USER=xml-reader
+        - POSTGRES_PASSWORD=xml-reader
+        - POSTGRES_DB=xml-reader
+      ports:
+        - "8006:5432"
+
+    webserver:
+      image: nginx:alpine
+      container_name: xml-reader-webserver
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "8002:80"
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: xml-reader-php-fpm
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
+
