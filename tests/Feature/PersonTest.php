@@ -23,6 +23,7 @@ class PersonTest extends TestCase
             'file' => $file
         ];
         $response = $this->post('/api/upload/people', $request);
+        dd($response->content());
         $response->assertStatus(400);
     }
 }

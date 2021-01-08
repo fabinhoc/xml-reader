@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
-use App\Repositories\PersonRepository;
+use App\Repositories\ShiporderRepository;
 use Illuminate\Http\Request;
 use App\Services\XMLStore;
 use App\Services\XMLReader;
 use App\Services\StoreData;
 
-class PersonController extends Controller
+class ShiporderController extends Controller
 {
-    public function index(PersonRepository $model)
+    public function index(ShiporderRepository $model)
     {
         return $model->all();
     }
@@ -31,7 +31,6 @@ class PersonController extends Controller
         }
 
         $storeData = new StoreData();
-        
-        return response()->json($storeData->savePeople($request));
+        return response()->json($storeData->saveShiporder($request));
     }   
 }

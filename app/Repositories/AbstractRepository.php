@@ -25,4 +25,9 @@ abstract class AbstractRepository {
     {
         return response()->json($this->model::insert($data));
     }
+
+    public function store($data)
+    {
+        return response()->json($this->model::create($data));
+    }
 }
