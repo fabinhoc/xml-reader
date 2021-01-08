@@ -20,4 +20,9 @@ abstract class AbstractRepository {
     {
         return $this->model->all();
     }
+
+    public function storeMassivelly(Array $data)
+    {
+        return response()->json($this->model::insert($data));
+    }
 }
