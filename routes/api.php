@@ -20,4 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/upload/people', 'PersonController@store');
 
-Route::post('/upload/shiporders', 'PersonController@store');
+Route::post('/upload/shiporders', 'ShiporderController@store');

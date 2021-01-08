@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\ItemRepository;
 use App\Repositories\PersonRepository;
 use App\Repositories\PhoneRepository;
+use Illuminate\Support\Facades\Validator;
 use App\Repositories\ShiporderRepository;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -33,19 +34,27 @@ class StoreData {
             return response()->json('File was not uploaded', 400);
         }
 
-        $xmlReader = new XMLReader('shiporders.xml');
+        $xmlReader = new XMLReader($xmlName);
         $xml = json_decode($xmlReader->xmlAsJson(), true);
 
         if (!$xml) {
-            return false;
+            return response()->json('Empty or invalid file', 400);
         }
 
         if (isset($xml['shiporder'])) {
 
             foreach ($xml['shiporder'] as $shiporder) {
 
+                $validator = Validator::make($shiporder, [
+                    'orderperson' => 'required|exists:App\Person,id'
+                ]);
+
+                if ($validator->fails()) {
+                    return response()->json($validator->errors()->all(), 400);
+                }
+
                 $persistShiporder = [
-                    'person_id' => $shiporder['orderperson'],
+                    'person_id' => intval($shiporder['orderperson']),
                     'shipto_name' => $shiporder['shipto']['name'],
                     'shipto_address' => $shiporder['shipto']['address'],
                     'shipto_city' => $shiporder['shipto']['city'],
@@ -54,33 +63,36 @@ class StoreData {
 
                 $id = app(ShiporderRepository::class)->store($persistShiporder)->getData()->id;
 
-                if (is_array($shiporder['items']['items'])) {
-                    foreach ($shiporder['items']['items'] as $item) {
-                        $persistShiporder = [
+                foreach ($shiporder['items'] as $item) {
+                    if (isset($item['title'])) {
+                        $persistItem = [
                             'shiporder_id' => $id,
                             'title' => $item['title'],
                             'note' => $item['note'],
                             'quantity' => $item['quantity'],
                             'price' => $item['price']
                         ];
-    
-                        app(ItemRepository::class)->store($persistShiporder);
+
+                        app(ItemRepository::class)->store($persistItem);
+
+                    } else {
+                        foreach ($item as $i) {
+                            $persistItem = [
+                                'shiporder_id' => $id,
+                                'title' => $i['title'],
+                                'note' => $i['note'],
+                                'quantity' => $i['quantity'],
+                                'price' => $i['price']
+                            ];
+                            
+                            app(ItemRepository::class)->store($persistItem);
+                        }
                     }
-                } else {
-                    $persistShiporder = [
-                        'shiporder_id' => $id,
-                        'title' => $shiporder['items']['item']['title'],
-                        'note' => $shiporder['items']['item']['note'],
-                        'quantity' => $shiporder['items']['item']['quantity'],
-                        'price' => $shiporder['items']['item']['price']
-                    ];
-                    
-                    app(ItemRepository::class)->store($persistShiporder);
                 }
             }
         }
 
-        return true;
+        return response()->json('success', 200);
     }
 
     private function extractPeopleData(Request $request)
@@ -92,11 +104,11 @@ class StoreData {
             return response()->json('File was not uploaded', 400);
         }
 
-        $xmlReader = new XMLReader('people.xml');
+        $xmlReader = new XMLReader($xmlName);
         $xml = json_decode($xmlReader->xmlAsJson(), true);
 
         if (!$xml) {
-            return false;
+            return response()->json('Empty or invalid file', 400);
         }
 
         if (isset($xml['person'])) {
@@ -126,6 +138,6 @@ class StoreData {
             }
         }
 
-        return true;
+        return response()->json('success', 200);
     }
 }

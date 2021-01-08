@@ -4,11 +4,11 @@ namespace Tests\Unit;
 
 use App\Person;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PersonTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     private $table = 'people';
 

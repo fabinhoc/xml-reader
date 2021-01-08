@@ -31,6 +31,6 @@ class ShiporderController extends Controller
         }
 
         $storeData = new StoreData();
-        return response()->json($storeData->saveShiporder($request));
+        return $storeData->saveShiporder($request);
     }   
 }

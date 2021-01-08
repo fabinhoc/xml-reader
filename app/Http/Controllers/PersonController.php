@@ -32,6 +32,6 @@ class PersonController extends Controller
 
         $storeData = new StoreData();
         
-        return response()->json($storeData->savePeople($request));
+        return $storeData->savePeople($request);
     }   
 }
