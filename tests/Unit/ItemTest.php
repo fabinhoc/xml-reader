@@ -4,11 +4,11 @@ namespace Tests\Unit;
 
 use App\Item;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ItemTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     private $table = 'items';
 

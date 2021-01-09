@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
@@ -10,7 +10,7 @@ use App\Person;
 
 class ShiporderTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
     /**
      * The is invalid, is empty
      *

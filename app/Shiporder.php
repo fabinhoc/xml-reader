@@ -20,6 +20,11 @@ class Shiporder extends Model
         'shipto_country'
     ];
 
+    public function items()
+    {
+        return $this->hasMany(\App\Item::class);
+    }
+
     public function person()
     {
         return $this->belongsTo(\App\Person::class, 'id', 'person_id');

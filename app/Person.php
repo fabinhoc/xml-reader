@@ -18,11 +18,11 @@ class Person extends Model
 
     public function shiporders()
     {
-        return $this->belongsTo(\App\Shiporder::class, 'id', 'person_id');
+        return $this->hasMany(\App\Shiporder::class);
     }
 
     public function phones()
     {
-        return $this->belongsTo(\App\Phone::class, 'id', 'person_id');
+        return $this->hasMany(\App\Phone::class);
     }
 }

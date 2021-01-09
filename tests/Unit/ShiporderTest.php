@@ -4,11 +4,11 @@ namespace Tests\Unit;
 
 use App\Shiporder;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShiporderTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     private $table = 'shiporders';
 

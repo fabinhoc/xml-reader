@@ -11,6 +11,7 @@ class PersonRepository extends AbstractRepository {
     {
         $resource = $this->model::with('phones')
             ->with('shiporders')
+            ->with('shiporders.items')
             ->get();
 
         return response()->json($resource);
