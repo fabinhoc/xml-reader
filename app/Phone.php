@@ -15,4 +15,9 @@ class Phone extends Model
     protected $fillable = [
         'phone', 'person_id'
     ];
+
+    public function person()
+    {
+        return $this->belongsTo(\App\Person::class, 'id', 'person_id');
+    }
 }

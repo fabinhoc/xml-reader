@@ -13,7 +13,7 @@ class PersonController extends Controller
 {
     public function index(PersonRepository $model)
     {
-        return $model->all();
+        return $model->findAll();
     }
 
     public function store(Request $request)

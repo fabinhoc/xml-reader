@@ -11,7 +11,7 @@ class XMLStore {
         $name = uniqid(date('HisYmd'));
         $extension = $request->file->extension();
         $nameFile = "{$name}.{$extension}";
-        $upload = $request->file->storeAs('xmls', $nameFile);
+        $upload = $request->file->storeAs('public/xmls', $nameFile);
 
         if (!$upload) {
             return false;

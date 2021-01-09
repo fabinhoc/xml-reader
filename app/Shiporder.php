@@ -19,4 +19,9 @@ class Shiporder extends Model
         'shipto_city',
         'shipto_country'
     ];
+
+    public function person()
+    {
+        return $this->belongsTo(\App\Person::class, 'id', 'person_id');
+    }
 }

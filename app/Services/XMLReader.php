@@ -14,7 +14,7 @@ class XMLReader {
 
     public function load()
     {
-        if (!Storage::disk('local')->exists('xmls/' . $this->filename)) {
+        if (!Storage::disk('local')->exists('public/xmls/' . $this->filename)) {
             return false;
         }
     }
@@ -36,7 +36,7 @@ class XMLReader {
         $this->load();
         $this->isXmlFile();
 
-        $file = Storage::disk('local')->get('xmls/' . $this->filename);
+        $file = Storage::disk('local')->get('public/xmls/' . $this->filename);
 
         return json_encode(simplexml_load_string($file));
     }
