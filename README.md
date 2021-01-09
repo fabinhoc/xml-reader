@@ -5,6 +5,7 @@ This is a project developed to read specifics xmls file and save the data on dat
 ## Pre-requisites
 
 Docker version 20.10.2
+docker-compose version 1.27.4
 
 ## Installation
 
