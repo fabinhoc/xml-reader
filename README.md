@@ -25,7 +25,7 @@ docker-compose exec php-fpm php artisan migrate
 ```
 Access to http://localhost:8002
 ```
-The frontend project is in another project. See in <a href="https://github.com/fabinhoc/xml-reader-frontend">XML-reader-frontend</a>
+The frontend project is in another repository. See in <a href="https://github.com/fabinhoc/xml-reader-frontend">XML-reader-frontend</a>
 
 ## Run tests
 
